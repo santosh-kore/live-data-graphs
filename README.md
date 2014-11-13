@@ -1,2 +1,2 @@
-live-time-data-graph
+live-data-graph
 ====================
