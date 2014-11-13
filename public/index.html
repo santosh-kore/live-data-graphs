@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <title>
+      Live graphs
+    </title>
+</head>
+<body>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  <script src='/javascripts/jquery-2.1.1.js' type='text/javascript'></script>
+  <script src='/javascripts/highcharts.js' type='text/javascript'></script>
+  <script src='/socket.io/socket.io.js' type='text/javascript'></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        
+        var renderGraph = function(graphData) {
+            $(function () {
+                $('#container').highcharts({
+                    title: {
+                        text: 'Monthly Average Temperature',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Temperature (°C)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '°C'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    },
+                    series: [{
+                        name: graphData.graphData.series[0],
+                        data: JSON.parse(graphData.graphData.data[0])
+                    }, {
+                        name: graphData.graphData.series[1],
+                        data: JSON.parse(graphData.graphData.data[1])
+                    }, {
+                        name: graphData.graphData.series[2],
+                        data: JSON.parse(graphData.graphData.data[2])
+                    }, {
+                        name: graphData.graphData.series[3],
+                        data: JSON.parse(graphData.graphData.data[3])
+                    }]
+                });
+            });
+        }
+
+        var socket = io.connect();
+
+        socket.emit('initial-graph-load', {});
+
+        socket.on('render-graph', function(graphData) {
+            //debugger;
+            renderGraph(graphData);
+            //console.log("Data received");
+        });
+    });
+  </script>>
+</body>
+</html>

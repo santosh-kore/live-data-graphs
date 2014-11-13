@@ -1,0 +1,15 @@
+{
+  "name": "Report-generator",
+  "description": "A package for generating graphs and reports on real time data",
+  "author": "Santosh kore <santoshkore23@gmail.com>",
+  "dependencies": {
+    "express": "^4.10.2",
+    "file-watch": "^0.1.0",
+    "mime": "^1.2.11",
+    "mysql": "^2.5.3",
+    "node-watch": "^0.3.4",
+    "nodemon": "^1.2.1",
+    "socket.io": "^1.2.0",
+    "watch-project": "0.0.7"
+  }
+}
